@@ -1,5 +1,6 @@
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 input = np.array([[0, 0, -1], [ 0, 1, -1], [1, 0, -1], [1, 1, -1]])
@@ -34,6 +35,12 @@ for t in range(0,10):
 		print("Input  : ", input[i])
 		print("Target : ", targ[i])
 		print("Output : ", output, "\n")
+	x = np.linspace(0,1,100)
+	plt.plot(x, -weights[0]/weights[1]*x + weights[2]/weights[1])
+	plt.scatter([0,0,1,1],[0,1,0,1], c=targ)
+	plt.xlim(-0.1,1.1)
+	plt.ylim(-0.1,1.1)
+	plt.show()
 
 
 	######################### ##########################
@@ -55,12 +62,9 @@ for t in range(0,10):
 		for j in range(0,3):
 			weights[j] = weights[j] - learn_rate*(output-targ[i])*input[i][j]
 			
-import matplotlib.pyplot as plt
 
-x = np.linspace(0,1,100)
-plt.plot(x, -weights[0]/weights[1]*x + weights[2]/weights[1])
-plt.scatter([0,0,1,1],[0,1,0,1])
-plt.show()
+
+
 			
 
 
