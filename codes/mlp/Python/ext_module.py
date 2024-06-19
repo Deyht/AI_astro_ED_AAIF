@@ -36,6 +36,12 @@ def forward(input_vect, in_dim, hidden_vect, hid_dim, output_vect, out_dim, weig
 		h = np.sum(weights2[:,i]*hidden_vect[:])
 		output_vect[i] = 1.0/(1.0 + np.exp(-beta*h))
 	
+	#Alternative softmax output function
+	#output_vect[:] = np.exp(output_vect[:])
+	#activ_sum = np.sum(output_vect)
+	#output_vect[:] /= activ_sum
+
+	
 	
 	
 @jit(nopython=True, cache=True, fastmath=False)
@@ -44,8 +50,10 @@ def backprop(input_vect, in_dim, hidden_vect, hid_dim, output_vect, targ_vect, o
 	#       One backward step with a binary neuron
 	######################### ##########################
 	
-	
 	delta_o = beta*(output_vect[:] - targ_vect[:])*output_vect[:]*(1.0 - output_vect[:])
+	#alternative softmax output with cross-entropy error
+	#delta_o = (output_vect[:] - targ_vect[:])
+	
 	delta_h = np.zeros(hid_dim-1)
 	
 	for i in range(hid_dim-1):
@@ -139,6 +147,13 @@ def forward_batch(input, hidden, output, weights1, weights2, beta):
 		
 	output[:,:] = 1.0/(1.0 + np.exp(-beta*output[:,:]))
 	
+	#Alternative softmax output function
+	#output[:,:] = np.exp(output[:,:])
+	#activ_sum = np.sum(output, axis=1)
+	#for i in range(0,np.shape(output)[0]):
+	#	output[i,:] /= activ_sum[i]
+	
+	
 
 def backprop_batch(input, hidden, delta_h, output, delta_o, targ, weights1, weights2, learn_rate, beta):
 	######################### ##########################
@@ -146,6 +161,8 @@ def backprop_batch(input, hidden, delta_h, output, delta_o, targ, weights1, weig
 	######################### ##########################
 	
 	delta_o[:,:] = beta*(output[:,:]-targ[:,:])*output[:,:]*(1.0-output[:,:])
+	#alternative softmax output with cross-entropy error
+	#delta_o = (output[:,:] - targ[:,:])
 
 	delta_h[:,:] = np.matmul(delta_o, np.transpose(weights2))
 

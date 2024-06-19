@@ -17,7 +17,7 @@ from ext_module import *
 
 nb_epochs = 1000
 control_interv = 10
-hid_dim = 8
+hid_dim = 5
 learn_rate = 0.05
 out_dim = 2
 beta = 1.0
