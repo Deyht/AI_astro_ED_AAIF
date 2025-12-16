@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-data_type = "2d"
+data_type = "3d"
 
 centers = np.loadtxt("kmeans_output_%s.dat"%(data_type), skiprows=1).T
 nb_dim, nb_k = np.shape(centers)
