@@ -1,0 +1,74 @@
+https://www.noao.edu/cflib/
+
+
+The Indo-U.S. Library of Coudé Feed Stellar Spectra
+
+
+
+
+The Spectral Library
+This spectral library consists of spectra for 1273 stars obtained with the 0.9m Coudé Feed telescope at Kitt Peak National Observatory. The spectra have been obtained at an original dispersion of 0.44 Angstroms/pixel, at a resolution of ~1 Angstroms FWHM. To cover the entire wavelength range of 3460 Angstroms to 9464 Angstroms requires five separate observations with different grating settings. These observations have been stitched together to form complete spectra for the individual stars. For 885 stars we have complete coverage over the entire wavelength range, and partial coverage for the remaining stars. The 1273 stars have been selected to provide broad coverage of the atmospheric parameters effective temperature, surface gravity, and [Fe/H], as well as spectral type. The goal of the project is to provide a comprehensive library of stellar spectra for use in automated classification of stellar and galaxy spectra and in galaxy population synthesis.
+
+Reference Paper
+The primary reference is The Indo-U.S. Library of Coudé Feed Stellar Spectra by Francisco Valdes, Ranjan Gupta, James Rose, Harinder Singh, and David Bell. The full version of the tables mentioned in the paper are table2 , table3 , and table4 . Links to other formats for the tables are given later.
+
+Acknowledgements
+The completion of the coude feed spectral library has benefitted immeasurably from the efforts of the Kitt Peak mountain staff and from the invaluable participation of many present and former undergraduate and graduate students at the University of North Carolina. We wish to acknowledge their contributions, as well as funding support, here .
+
+Spectral Data Table: Release V1
+The spectral data table contains the names and various quantities for every star in the library. This information is the same as found in each spectral data file. The table is available in the following formats: HTML and FITS Binary Table . The table is also broken into printable formats as given below. The first column in each table is the primary star ID, which corresponds to the spectral data filenames in the library.
+
+Table 2 ( ps , pdf , latex ) provides observational information consisting of the FK5 right ascension and declination, the V apparent magnitude, B-V color, the number of exposures obtained, the wavelength coverage, and any gaps within the specified coverage. Table 3 ( ps , pdf , latex ) lists the physical parameters for the stars from the literature. The columns are the spectral type, the spectral type from the Pickles (1998) library used for defining the continuum shape, the heliocentric radial velocity, the effective temperature, the gravity, the metalicity, and the literature reference for the temperature, gravity, and metalicity. The Pickles class in table 3 was assigned based on the literature spectral type but is not always an exact match since the Pickles library does not contain data for all our types. When no appropriate type was available a flat continuum was applied as identified by the word "flat". Table 4 ( ps , pdf , latex ) provides a cross-reference for the star names. The first name is the name adopted in the library followed by alternate names.
+
+The right ascension, declination, V magnitude, spectral type, radial velocity, and cross-reference identifications were obtained from SIMBAD, except for a few cases where we had to measure the radial velocity from the observations as described earlier.
+
+Spectral Data: Release V1
+This is the first release of the Indo-U.S. Library of Coudé Feed Stellar Spectra. In this release there are two types of spectra: (1) the complete linearized and merged (from all grating settings and observations) "standard" spectrum and (2) the individual observed spectra on which the merged spectrum is based. Furthermore, the individual spectra are available with and without continuum corrections. The continuum corrections consist of removing the telluric lines in the red and applying a smooth low order continuum normalization to match the continuum shape from a library of low resolution spectra.
+
+The spectral data are provided in three file formats. In each format there is one file per star. All three formats contain the final merged spectrum and two of them also contain the individual observations. The individual observations also include ancillary spectra and uncertainties.
+
+Before describing the file formats we summarize the characteristics of the two types of spectra.
+
+STANDARD MERGED SPECTRA
+The standard merged spectra are obtained by resampling the individual observations to a linear and common grid of wavelengths. These are then averaged in regions of overlap between grating settings to form the final spectrum. The wavelength sampling goes from 3465.0 to 9469.0 Angstroms in steps of 0.4 Angstroms. Telluric features that plague red wavelengths are removed following a procedure described in the reference paper and here . The fluxes are continuum calibrated to a normalized flux density system as described in the reference paper and at here . The individual observations are then stitched together into a final spectrum, as described here . When no observations covered a particular wavelength a value of 0.0001 is given.
+
+INDIVIDUAL CONTINUUM CALIBRATED SPECTRA
+Each exposure is reduced to a primary continuum calibrated spectrum as described in the reference paper. Because one might want to see the original detected CCD counts as well as the strength of the telluric lines, versions without continuum modification are also produced. These spectra are only available in FITS multiextension files in either image (multispec) or binary table formats. In both cases the extension names start with 'c' for the continuum calibrated version or 'a' for the original extracted pixel counts. The rest of the extension name gives the UT date and observation sequence number.
+
+The wavelengths in the individual spectra are sampled with the original CCD pixels so that no interpolation has been performed. Instead the non-linear wavelength sampling is described by a smooth dispersion function of the pixel number. In the two FITS formats the dispersion function is either given in a functional form using an IRAF convention or as a vector in the binary table.
+
+This data has ancillary spectra with the same wavelength sampling. There are three types of ancillary spectra. One is a raw version of the primary spectrum extracted without S/N weighting and without removal of cosmic ray affected pixels. The primary and raw spectra are background corrected. Another ancillary spectrum gives the background values subtracted based on nearby regions in the slit. The last ancillary spectrum provides 1 sigma uncertainty estimates for the primary flux values. These uncertainties are derived based on a Poisson model of the CCD pixels and error propagation during the extraction to one dimension.
+
+The three file formats are now described.
+
+TEXT
+This format is an ASCII text file with a header section followed by two columns consisting of the wavelengths in Angstroms and the primary continuum calibrated flux values. The spectrum is the final merged version.
+
+The header section begins with the character #. Lines beginning with #K are keywords. There are also lines giving the column labels and units.
+
+IRAF
+This format is a multiextension FITS file consisting of a primary image and additional image extensions. The image formats are directly usable with the IRAF/NOAO spectral tasks including SPLOT and SPECTOOL. To access the primary spectrum with, e.g., the IRAF SPLOT task, one needs to follow the image name with a "[0]" designation, e.g., splot 100060.fits[0].
+
+The primary image is the standard merged spectrum. The uniform linear wavelength sampling is described by a standard FITS world coordinate system.
+
+The image extensions correspond to the individual observations. The number of extensions is variable. The extension names identify the observation date and time. The wavelengths are in the original CCD pixel sampling. In other words, no interpolation has been done. This means the wavelengths are described by a non-linear dispersion function. The world coordinate system is the IRAF multispec system which is not a FITS standard. One may use IRAF tasks to interpret the wavelengths or evaluate the functional representation themselves. Alternatively, the binary table file format should be selected since it lists the wavelengths of each pixel.
+
+The image raster is three dimensional where each column is a particular wavelength, there is only one row, and the bands (the third dimension) corresponds to associated spectral data. In array notation the data are:
+
+[*,1,1]
+The primary spectrum.
+[*,1,2]
+The raw spectrum.
+[*,1,3]
+The background spectrum.
+[*,1,4]
+The uncertainty spectrum.
+BINTABLE
+This format is a multiextension FITS file consisting of a number of binary table extensions. The tables have a header describing the table data as well as general descriptive keywords. The table data consists of two or five columns and one row. Each column element contains a one dimensional vector and all vectors in the row have the same length.
+
+The first extension is for the standard merged spectrum. This table has two columns for the wavelength vector and the flux vector. The other extensions are for the individual observations in their original CCD wavelength sampling. These have five columns consisting of the wavelengths, the primary flux spectrum, the raw spectrum, the background spectrum, and the uncertainities in the primary spectrum.
+
+In the V1 release there is no FITS world coordinate system based on the wavelength vector. In a future release this format will include such a standard system.
+
+Downloading the V1 Spectral Data
+The individual files are found starting at the V1 release directory. This directory may also be reached by ftp at ftp.noao.edu/cflib. In this directory you will find three directories, IRAF, BINTABLE, TEXT, for the three formats. In these directories you can obtain the individual files for each star. You will also find three gzip compressed tar files with the tgz extension, one for each directory. This contains all the files.
