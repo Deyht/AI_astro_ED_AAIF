@@ -10,7 +10,7 @@
 
 
 import numpy as np
-#from numba import jit
+from numba import jit
 #uncoment numba lines to expect high speed up with on-line and sgd algorithms
 
 
@@ -20,7 +20,7 @@ import numpy as np
 	
 ######################### ########################## ##########################
 
-#@jit(nopython=True, cache=True, fastmath=False)
+@jit(nopython=True, cache=True, fastmath=False)
 def forward(input_vect, in_dim, hidden_vect, hid_dim, output_vect, out_dim, weights1, weights2, beta):
 	######################### ##########################
 	#        One forward step with a binary neuron
@@ -44,7 +44,7 @@ def forward(input_vect, in_dim, hidden_vect, hid_dim, output_vect, out_dim, weig
 	
 	
 	
-#@jit(nopython=True, cache=True, fastmath=False)
+@jit(nopython=True, cache=True, fastmath=False)
 def backprop(input_vect, in_dim, hidden_vect, hid_dim, output_vect, targ_vect, out_dim, weights1, weights2, learn_rate, beta):
 	######################### ##########################
 	#       One backward step with a binary neuron
